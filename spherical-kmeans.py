@@ -5,7 +5,7 @@ from common import *
 
 
 data_file = "Data/Tweets.10tags"
-repeat = 1
+repeat = 10
 
 hashtags, vectors = read_data(data_file)
 tagmap, hashids, cluster_cnt = mktagmap(hashtags)

@@ -8,16 +8,34 @@ from common import *
 data_file = "Data/Tweets.10tags"
 repeat = 10
 
+# read input and produce list of hashtags and vectors of term counts
 hashtags, vectors = read_data(data_file)
+
+# mapping of hashtags to hashtag count, list of hashtags as indices (true clustering), hashtag count (== 10)
 tagmap, hashids, cluster_cnt = mktagmap(hashtags)
 
 
 def repeat_spectral_clustering(rpt, clustering_object, data):
-    res = []
+    """
+    Repeat spectral clustering, collect results
+
+    Parameters
+    --------
+    rpt : number of repetitions
+    clustering_object : spectral clustering object
+    data : input data
+
+    Returns
+    -------
+    result : list of clustering results
+
+    """
+
+    result = []
     for r in range(rpt):
         clustering = clustering_object.fit_predict(data)
-        res.append(clustering)
-    return res
+        result.append(clustering)
+    return result
 
 
 for affinity in ('precomputed', 'nearest_neighbors'):

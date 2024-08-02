@@ -6,6 +6,19 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 
 def read_data(src_file):
+    """
+    Loads input file and extracts hashtags.
+
+    Parameters
+    --------
+    src_file : text input consisting of lines with one hashtag
+
+    Returns
+    -------
+    hashtags : list of hashtags extracted from input lines
+    vectors : list of vectors representing input lines term counts.
+
+   """
     vectorizer = CountVectorizer(strip_accents='unicode')
     with codecs.open(src_file, mode='r', encoding='utf-8') as input_file:
         input_lines = [line.rstrip() for line in input_file.readlines()]
@@ -17,6 +30,20 @@ def read_data(src_file):
 
 # Since Python 3.7*, dictionaries are order-preserving,
 def mktagmap(hashtags):
+    """
+    Count hashtag occurrences.
+
+    Parameters
+    --------
+    hashtags : list of hashtags extracted from input lines
+
+    Returns
+    -------
+    tagmap : mapping of hashtags to their number of occurrences
+    hashids : list of hashtags as indices in tagmap
+    cluster_cnt : number of different hashtags
+
+    """
     tagmap = {}
     for tag in hashtags:
         if tag in tagmap:
@@ -30,6 +57,20 @@ def mktagmap(hashtags):
 
 
 def evaluate_score(labels_true, labels_pred):
+    """
+    Evaluates scores with popular meaasures.
+    Note, that 'rand_score' is available in scikit-learn version above 22
+
+    Parameters
+    --------
+    labels_true : true clustering (given by hashtags)
+    labels_pred : predicted clustering
+
+    Returns
+    -------
+    scores : the string to be printed elsewhere
+
+    """
     import pkg_resources
     smv = pkg_resources.get_distribution("scikit-learn").version
     v = int(smv[2:4])
@@ -48,6 +89,22 @@ def evaluate_score(labels_true, labels_pred):
 
 
 def select_best_f(lab_true, lab_pred_list):
+    """
+    Find best result according to F measure.
+
+    Parameters
+    --------
+    lab_true : base truth clustering (i.e., given by hashtags)
+    lab_pred_list : list of discovered clusterings
+
+    Returns
+    -------
+    best_cl : best clustering (list of indices) with respect to F measure
+    best : the best clustering F measure
+    worst : the worst F measure
+    avg : average F measure
+
+    """
     best = -1.0
     worst = 1.0
     avg = 0.0

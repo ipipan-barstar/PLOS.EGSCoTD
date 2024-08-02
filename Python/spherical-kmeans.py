@@ -7,10 +7,13 @@ from common import *
 data_file = "Data/Tweets.10tags"
 repeat = 10
 
+# read input and produce list of hashtags and vectors of term counts
 hashtags, vectors = read_data(data_file)
+
+# mapping of hashtags to hashtag count, list of hashtags as indices (true clustering), and hashtag count (== 10)
 tagmap, hashids, cluster_cnt = mktagmap(hashtags)
 
-
+# Spherical k-means parameters
 skmeans_config = {
     "sc.n": ('similar_cut', None),
     "sc.sc": ('similar_cut', 'sculley'),
@@ -22,6 +25,20 @@ skmeans_config = {
 
 
 def run_skmeans(spher_kmeans, data_matrix, rpt):
+    """
+    Repeat spherical k-means, collect results
+
+    Parameters
+    --------
+    spher_kmeans : spherical k-means object
+    data_matrix : input data
+    rpt : number of repetitions
+
+    Returns
+    -------
+    result : list of clustering results
+
+    """
     result = []
     for n in range(rpt):
         clus = spher_kmeans.fit_predict(data_matrix)

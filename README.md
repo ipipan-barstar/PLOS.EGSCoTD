@@ -7,7 +7,7 @@ published in PLOSONE.
 This code was used to produce the tables presented in the paper.
 
 
-# Files and Folders
+# Main Files and Folders
 
 ## Python 
 
@@ -19,9 +19,21 @@ Clustering with spherical k-means algorithm.
 
 Clustering with spectral algorithm.
 
-### ``common.py``
 
-Common python procedures.
+## R
+
+Run the scripts interactively and follow the inctructions.
+Optionally fine-tune parameters in files prior to execution. 
+Results are stored in folder ``Results``.
+
+### ``TWT_read_exp.R``
+
+Clustering real world data (``Data/Tweets.10tags``). 
+
+### ``BLK_readX.R``
+
+Clustering artificially generated data.
+
 
 ## Data
 

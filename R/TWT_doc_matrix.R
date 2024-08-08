@@ -173,7 +173,7 @@ res$nnn.type = paste0("TWT.", twt.type);
 
 if (SaveDocMatrix) {
 
-  basepath = paste0("Wyniki_", substr(res$nnn.type, 1, 3))
+  basepath = paste0("../Results/", substr(res$nnn.type, 1, 3))
   ifelse(!dir.exists(file.path(getwd(), basepath)), dir.create(getwd(), basepath), FALSE)
 
 
@@ -187,16 +187,16 @@ if (SaveDocMatrix) {
   saveWorkbook(wb, file = paste0(basepath, "/", twt.type, "allWordColsClasses.xlsx"), overwrite = TRUE)
   cat("
 
- saved as", paste0("Wyniki_TWT/", twt.type, "allWordColsClasses.xlsx")
+ saved as", paste0("../Results/TWT/", twt.type, "allWordColsClasses.xlsx")
     , "
 ");
 }
 
-#saveRDS(res, file = paste0("Wyniki_TWT/",twt.type,"allwordcols.RDS") )
+#saveRDS(res, file = paste0("../Results/TWT/",twt.type,"allwordcols.RDS") )
 
 cat("
  
-   saved as", paste0("Wyniki_TWT/", twt.type, "allwordcols.RDS")
+   saved as", paste0("../Results/TWT/", twt.type, "allwordcols.RDS")
   , "
 
 
@@ -223,7 +223,7 @@ S = as.matrix(RES[,]) %*% t(as.matrix(RES[,]))
 }
 
 
-sink("DATASET_descriptions.txt", append = TRUE)
+sink("../Results/DATASET_descriptions.txt", append = TRUE)
 nrec = length(nnn_cats)
 cardcats = table(nnn_cats)
 ncl = length(cardcats)

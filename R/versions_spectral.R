@@ -14,7 +14,6 @@ latexMatrix <- function(theMatrix, theComment, theCaption, theLabel, theWidth = 
   while (fm < dim(theMatrix0)[2])
   {
     theMatrix0 = theMatrix0[, (fm + 1):dim(theMatrix0)[2]]
-    #--
     theMatrix = theMatrix0;
     cn = colnames(theMatrix);
     rn = rownames(theMatrix);
@@ -142,9 +141,6 @@ cmpClusterings <- function(clsTrue, clsComputed, theComment = "", theCaption = "
   return(en);
 }
 
-# eof
-
-#--------------------------------
 similarityToDiagonal <- function(S)
 { no = dim(S)[1];
   d = rep(0, no);
@@ -153,8 +149,6 @@ similarityToDiagonal <- function(S)
 
 }
 
-# eof
-#--------------------------------
 similarityToExdiagDiagonal <- function(S)
 { no = dim(S)[1];
   d = rep(0, no);
@@ -163,9 +157,6 @@ similarityToExdiagDiagonal <- function(S)
 
 }
 
-# eof
-
-#--------------------------------
 similaritySVDapproximation <- function(S, r)
 {
   for (j in 1:dim(S)[1]) S[j, j] = 0
@@ -194,10 +185,6 @@ similaritySVDapproximation <- function(S, r)
 
 }
 
-# eof
-
-
-#--------------------------------
 similarityToCombinatorialLaplacian <- function(S)
 { D = similarityToDiagonal(S);
   L = D - S;
@@ -205,9 +192,6 @@ similarityToCombinatorialLaplacian <- function(S)
 
 }
 
-# eof
-
-#--------------------------------
 similarityToNormalizedLaplacian <- function(S)
 { D = similarityToDiagonal(S);
   Dexd = similarityToExdiagDiagonal(S);
@@ -216,9 +200,6 @@ similarityToNormalizedLaplacian <- function(S)
   return(L);
 }
 
-# eof
-
-#--------------------------------
 IDM <- function(n)
 {
   v = rep(1, n);
@@ -226,7 +207,6 @@ IDM <- function(n)
   return(idm);
 }
 
-#--------------------------------
 similarityToKamvarLaplacian <- function(S)
 { D = similarityToDiagonal(S);
   dmax = max(D);
@@ -258,9 +238,6 @@ dataToSimilarityGauss <- function(Data)
   return(S);
 }
 
-# eof
-#--------------------------------
-#--------------------------------
 CombinatorialSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL, unitrow = FALSE, useEv = NULL)
   # trueNoCl - number of lowest eigenvectors taken into account
   # enforced - the number of clusters to be outputted
@@ -271,10 +248,6 @@ CombinatorialSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL, u
   return(UniversalSpectral(L, trueNoCl, enforced, unitrow = unitrow, useEv = useEv));
 }
 
-#eof
-
-
-#--------------------------------
 NormalizedSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL, highest = FALSE, unitrow = FALSE, useEv = NULL)
   # trueNoCl - number of lowest eigenvectors taken into account
   # enforced - the number of clusters to be outputted
@@ -285,9 +258,6 @@ NormalizedSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL, high
   return(UniversalSpectral(L, trueNoCl, enforced, highest = highest, unitrow = unitrow, useEv = useEv));
 }
 
-#eof
-
-#--------------------------------
 KamvarSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL)
   # trueNoCl - number of lowest eigenvectors taken into account
   # enforced - the number of clusters to be outputted
@@ -296,7 +266,6 @@ KamvarSpectral <- function(SimilarityMatrix, trueNoCl, enforced = NULL)
   return(UniversalSpectral(L, trueNoCl, enforced, highest = TRUE, unitrow = TRUE));
 }
 
-#eof
 # TEST
 # cmpClusterings(ClsTXT,KamvarSpectral(S,trueNoCl)$newcls); 
 # cmpClusterings(ClsTXT,KamvarSpectral(S,trueNoCl+1,trueNoCl)$newcls); 
@@ -343,7 +312,6 @@ UniversalSpectral <- function(L, trueNoCl, enforced, highest = FALSE, unitrow = 
   if (trueNoCl >= length(sss$values)) trueNoCl = length(sss$values) - 1;
   if (is.null(enforced)) enforced = trueNoCl;
   if (enforced >= length(sss$values)) enforced = floor(length(sss$values) / 2);
-  #print("wir sind hier");
   #print(highest);
   X = sss$vectors[, length(sss$values) - (trueNoCl - 1):0]
 
@@ -364,7 +332,6 @@ UniversalSpectral <- function(L, trueNoCl, enforced, highest = FALSE, unitrow = 
       for (j in 1:length(lam))
         if (lam[j] > 0) X[, j] = X[, j] * lam[j]^(0.5 * useEv)
     }
-    #print("here");
     if (unitrow)
       for (j in 1:dim(X)[1])
       { lrow = sqrt(sum(X[j,] * X[j,]));
@@ -375,7 +342,6 @@ UniversalSpectral <- function(L, trueNoCl, enforced, highest = FALSE, unitrow = 
     #print(X[,1]);
     fit = kmeans(X, center = enforced, nstart = combNSTART);
     newcls = fit$cluster;
-    #print("here2");
   }
   res = list();
   res$newcls = newcls;
@@ -386,9 +352,6 @@ UniversalSpectral <- function(L, trueNoCl, enforced, highest = FALSE, unitrow = 
 
 }
 
-# eof
-
-#--------------------------------
 CombinatorialSpectralOLD <- function(SimilarityMatrix, trueNoCl, enforced = NULL)
   # trueNoCl - number of lowest eigenvectors taken into account
   # enforced - the number of clusters to be outputted
@@ -421,8 +384,6 @@ CombinatorialSpectralOLD <- function(SimilarityMatrix, trueNoCl, enforced = NULL
   return(res);
 }
 
-# eof
-#--------------------------------
 NormalizedSpectralOLD <- function(SimilarityMatrix, trueNoCl, enforced = NULL)
 { S = SimilarityMatrix;
   L = similarityToNormalizedLaplacian(S);
@@ -449,18 +410,12 @@ NormalizedSpectralOLD <- function(SimilarityMatrix, trueNoCl, enforced = NULL)
   return(res);
 }
 
-# eof
-
-#-------------------------------------------------- 
 EN.make.names <- function(nml, onlyPLK = FALSE)
 { txt = nml
   if (!onlyPLK) txt = make.names(txt);
   return(txt);
 }
 
-# am Ende make.names anwenden
-
-#-------------------------------------------------- 
 EN.make.tex.names <- function(nml, onlyPLK = TRUE)
 { txt = nml
   if (!onlyPLK) txt = make.names(txt);
@@ -469,15 +424,12 @@ EN.make.tex.names <- function(nml, onlyPLK = TRUE)
   return(txt);
 }
 
-# am Ende make.names anwenden
-
 
 #---------------- FUNCTIONS END --------------
 
 # S2=similaritySVDapproximation(S,r=250);
 # e2=eigen(S2); 
 
-######################## KONIEC ############################
 
 ############################################
 ############################################

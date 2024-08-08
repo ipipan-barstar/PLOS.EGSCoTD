@@ -42,7 +42,7 @@ source("versions_spectral.R");
 
 cat("\n Saving the data: RES0 and nnn_cats");
 
-targetDir = paste0("Wyniki_", substr(nnn.type, 1, 3));
+targetDir = paste0("../Results/", substr(nnn.type, 1, 3));
 target.data = cbind(theGROUP = nnn_cats, RES0)
 
 if (!dir.exists(targetDir))

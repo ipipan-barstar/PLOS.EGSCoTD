@@ -28,9 +28,6 @@ kmeansWITHweights <- function(x, centers, iter.max = 10L, nstart = 1L, algorithm
 
 }
 
-# eof
-
-#-----------------------------------------------------------------------
 kmeansWITHweightsOne <- function(x, centers, iter.max = 10L, algorithm = c("Hartigan-Wong",
                                                                            "Lloyd", "Forgy", "MacQueen"), trace = FALSE, theWeights = NULL, max_stagnationL = 20, clMinSize = 5, clMinShare = 0.1, maxRemShare = 0.5, navigation = FALSE, test = FALSE
 )
@@ -151,8 +148,6 @@ kmeansWITHweightsOne <- function(x, centers, iter.max = 10L, algorithm = c("Hart
   return(res)
 }
 
-# eof
-#-----------------------------------------------------------------------
 kmeansWITHweightsQ <- function(x, cluster, iter.max = 10L, algorithm = c("Hartigan-Wong",
                                                                          "Lloyd", "Forgy", "MacQueen"), trace = FALSE, theWeights = NULL)
   # the current implementation is simplified as follows:
@@ -195,9 +190,6 @@ kmeansWITHweightsQ <- function(x, cluster, iter.max = 10L, algorithm = c("Hartig
   return(res)
 }
 
-# eof
-
-######
 
 kmeansWITHweightsQvD <- function(x, cluster, iter.max = 10L, algorithm = c("Hartigan-Wong",
                                                                            "Lloyd", "Forgy", "MacQueen"), trace = FALSE, theWeights = NULL)
@@ -229,8 +221,6 @@ kmeansWITHweightsQvD <- function(x, cluster, iter.max = 10L, algorithm = c("Hart
   res$tot.withinss = Q
   return(res)
 }
-
-# eof
 
 
 ##########################

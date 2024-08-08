@@ -12,7 +12,7 @@ cat("
 ");
 
 
-ifelse(!dir.exists(file.path(getwd(), "../figs/")), dir.create(file.path(getwd(), "../figs")), FALSE)
+ifelse(!dir.exists(file.path(getwd(), "../Results/figs/")), dir.create(file.path(getwd(), "../Results/figs")), FALSE)
 
 S = S - diag(diag(S))
 
@@ -58,7 +58,7 @@ lims = c(1, n)
 
 for (isPDF in c(FALSE, TRUE))
 {
-  if (isPDF) pdf(paste0("../figs/", experiment$name, "_", experiment$figex, ".pdf"))
+  if (isPDF) pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
 
   plot(x, y, main = paste("nodes connected with weight above", round(tr, digit = 3)), pch = 20, col = "green", xlim = lims, ylim = lims)
   points(xl, yl, col = "grey") # 400 lowest similarities
@@ -116,7 +116,7 @@ aDVtop100 = DVtop100 / 100
 experiment$figex = "siminout"
 for (isPDF in c(FALSE, TRUE))
 {
-  if (isPDF) pdf(paste0("../figs/", experiment$name, "_", experiment$figex, ".pdf"))
+  if (isPDF) pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
   plot(sort(aDV), main = "average similarity sorted - \nblack total, green inside blue outside", ylab = "point average similarity", ylim = c(0, max(c(aDV, aDVi, aDVo))));
   points(sort(aDVi), col = "green3");
   points(sort(aDVo), col = "blue3");
@@ -129,7 +129,7 @@ for (isPDF in c(FALSE, TRUE))
 experiment$figex = "siminoutdiff"
 for (isPDF in c(FALSE, TRUE))
 {
-  if (isPDF) pdf(paste0("../figs/", experiment$name, "_", experiment$figex, ".pdf"))
+  if (isPDF) pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
   plot(sort(aDVi - aDVo), main = "average similarity in/out difference", ylab = "point average similarity", ylim = c(0, max(c(aDV, aDVi, aDVo))));
 
   if (!isPDF) readline("see ?similarities inside  outside differernce>>>");
@@ -140,7 +140,7 @@ for (isPDF in c(FALSE, TRUE))
 experiment$figex = "toplowsim"
 for (isPDF in c(FALSE, TRUE))
 {
-  if (isPDF) pdf(paste0("../figs/", experiment$name, "_", experiment$figex, ".pdf"))
+  if (isPDF) pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
   plot(sort(aDVtop100), main = paste0("top/bottom ", topy, " point similarities"), ylim = c(0, max(aDVtop100)));
   points(sort(aDVlow100), col = "blue3");
   if (!isPDF) readline("see ?top and low similarities>>>");
@@ -150,7 +150,7 @@ for (isPDF in c(FALSE, TRUE))
 experiment$figex = "toplowdiff"
 for (isPDF in c(FALSE, TRUE))
 {
-  if (isPDF) pdf(paste0("../figs/", experiment$name, "_", experiment$figex, ".pdf"))
+  if (isPDF) pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
   plot(sort(aDVtop100 - aDVlow100), main = "average differene top bottom mean", ylab = "point similarity 100 span", ylim = c(0, max(c(aDVtop100 - aDVlow100))));
   if (!isPDF) readline("see ?top low sim difference>>>");
   if (isPDF) dev.off()

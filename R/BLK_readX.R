@@ -1,7 +1,6 @@
 if (1 == 0) { ##########################################
   source("BLK_readX.R");
-
-} # 1===0 ########################################## 
+} # 1===0 ##########################################
 #Pseudo read of block matrix - artificial data
 ############ PARAMETER set samples ######################
 
@@ -76,7 +75,7 @@ while (!is.null(dev.list()))  dev.off();
 
 #-------------------------------------
 
-targetDir = paste0("Wyniki_", "BLK");
+targetDir = paste0("../Results/", "BLK");
 
 if (!dir.exists(targetDir))
 {
@@ -101,8 +100,7 @@ for (j in 1:noDocs)
   subg = 1:noel %% (group + 1 + ext); # group was applied here
   subg = 1:noel %% (groupX + 1 + ext); # groupX was applied here
 
-  p =
-    rnorm(noel, subg * floor(group_noWords / (group_count + ext)), group_noWords / 3 / 4)
+  p = rnorm(noel, subg * floor(group_noWords / (group_count + ext)), group_noWords / 3 / 4)
 
 
   where = table(floor(abs(p)) %% group_noWords)

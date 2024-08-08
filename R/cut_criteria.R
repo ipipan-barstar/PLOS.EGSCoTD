@@ -125,7 +125,7 @@ plotEmbed <- function(embed, clustering, title = NULL, theWeights = NULL, naviga
 
     d2 = par %% 10;
     d1 = (par - d2) / 10;
-    if (isPDF)  pdf(paste0("../figs/", experiment$name, "_", experiment$figex, "_", par, ".pdf"))
+    if (isPDF)  pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, "_", par, ".pdf"))
 
     plot(embed[cnd, d1], embed[cnd, d2], , asp = 1, main = title, sub = Subtitle, xlab = paste("dim", d1), ylab = paste("dim", d2));
     colset = c("blue3", "green3", "brown", "yellow", "cyan3", "gray", "navy")

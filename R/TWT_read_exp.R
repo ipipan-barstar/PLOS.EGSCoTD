@@ -22,9 +22,9 @@ linesToRead = 220000 # the first linesToRead tweets will be read
 doccountmax = 2200 # the maximum number of docs to consider
 
 
-theFolder = "../DATASET" # place where files are located
+theFolder = "../Data" # place where files are located
 dataset.list = c(
-  "en.Size=150.TagCap=300.SEL.txt"
+  "Tweets.10tags"
 );
 
 EN.hashes = c(

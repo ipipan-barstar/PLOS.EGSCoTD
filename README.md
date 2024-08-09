@@ -9,20 +9,18 @@ This code was used to produce the tables presented in the paper.
 
 # Main Files and Folders
 
-## Python 
+## ``Data/Tweets.10tags``
 
-### ``spherical-kmeans.py``
+Input data: tweets with exactly 1 of 10 hashtags.
 
-Clustering with spherical k-means algorithm.
+## ``Results``
 
-### ``scikt-spectral.py``
+Output directory ``Results`.
+Must exist in parent relatively to R code working folder.
 
-Clustering with spectral algorithm.
+## ``R``
 
-
-## R
-
-Run the scripts interactively and follow the inctructions.
+Run the scripts interactively and follow the inctructions as they appear.
 Optionally fine-tune parameters in files prior to execution. 
 Results are stored in folder ``Results``.
 
@@ -34,12 +32,17 @@ Clustering real world data (``Data/Tweets.10tags``).
 
 Clustering artificially generated data.
 
+## ``Python`` 
 
-## Data
+### ``spherical-kmeans.py``
 
-### ``Tweets.10tags``
+Clustering with spherical k-means algorithm.
 
-Input data: tweets with exactly 1 of 10 hashtags.
+### ``scikt-spectral.py``
+
+Clustering with spectral algorithm.
+
+
 
 # Requirements
 

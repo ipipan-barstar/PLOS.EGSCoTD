@@ -2,10 +2,13 @@ if (1 == 0) { ##################################################################
   source("find_Rcut.R");
 } #############################################################################
 
-while (sink.number() > 0) sink();
-while (!is.null(dev.list())) dev.off();
+while (sink.number() > 0)
+  sink();
+while (!is.null(dev.list()))
+  dev.off();
 
 source("cut_criteria.R");
+
 cat("
 ################################################################
 # find_Rcut.R -  Derivation
@@ -15,18 +18,18 @@ cat("
 prRCut("true", S, nnn_cats)
 flush.console();
 
-mkSYMprint <- function(M, Mname)
-{
-  cat("\nSymmetrize  Matrix ", Mname, "\n"); print(dim(M))
+mkSYMprint <- function(M, Mname) {
+  cat("\nSymmetrize  Matrix ", Mname, "\n");
+  print(dim(M))
   for (j in 1:dim(M)[1])
-    for (k in 1:dim(M)[2])
-    { s = (M[j, k] + M[k, j]) / 2; M[j, k] = s; M[k, j] = s; }
+    for (k in 1:dim(M)[2]) {
+      s = (M[j, k] + M[k, j]) / 2;
+      M[j, k] = s;
+      M[k, j] = s;
+    }
   flush.console()
   return(M)
 }
-
-# eof
-
 
 source("versions_spectral.R");
 
@@ -35,8 +38,7 @@ cat("\n Saving the data: RES0 and nnn_cats");
 targetDir = paste0("../Results/", substr(nnn.type, 1, 3));
 target.data = cbind(theGROUP = nnn_cats, RES0)
 
-if (!dir.exists(targetDir))
-{
+if (!dir.exists(targetDir)) {
   dir.create(targetDir);
   cat("\nDirectory ", targetDir, "created\n\n");
 }
@@ -49,11 +51,13 @@ flush.console();
 n = dim(S)[1]
 
 # S diagonal must be 0
-for (j in 1:dim(S)[1]) S[j, j] = 0
+for (j in 1:dim(S)[1])
+  S[j, j] = 0
 
 D = matrix(nrow = n, ncol = n)
 D[,] = 0
-for (j in 1:n) D[j, j] = sum(S[j,])
+for (j in 1:n)
+  D[j, j] = sum(S[j,])
 
 L = D - S
 
@@ -68,9 +72,7 @@ DSQ = (Isq - I - S)
 K = -0.5 * (I - Isq / n) %*% DSQ %*% (I - Isq / n)
 K = mkSYMprint(K, "K")
 
-
 IsPNG = FALSE
-
 
 egK = eigen(K)
 #print(egK)
@@ -78,16 +80,18 @@ LambdaV = egK$values
 if (length(LambdaV[LambdaV < 0]) < 2)
   LambdaV[LambdaV < 0] = 0
 
-if (IsPNG) png(paste0(targetDir, "/", "EigenvaluesKbased", nnn.type, ".png"));
+if (IsPNG)
+  png(paste0(targetDir, "/", "EigenvaluesKbased", nnn.type, ".png"));
 plot(LambdaV, main = "Eigenvalues K-based", ylab = "eigenvalue")
-if (IsPNG) dev.off()
+if (IsPNG)
+  dev.off()
 
 mEv = min(LambdaV)
 cat("\nMinimal eigenvalue of K", mEv, "\n")
 #readline("\nlook"); 
 
-if (mEv < 0)
-{ sigma = -2 * mEv + 1e-10
+if (mEv < 0) {
+  sigma = -2 * mEv + 1e-10
 
   for (j in 1:dim(DSQ)[1])
     for (k in 1:dim(DSQ)[2])
@@ -135,9 +139,11 @@ print(table(clLbased, nnn_cats))
 
 
 L_LambdaV = Lbased$embed$values
-if (IsPNG) png(paste0(targetDir, "/", "EigenvaluesLbased", nnn.type, ".png"));
+if (IsPNG)
+  png(paste0(targetDir, "/", "EigenvaluesLbased", nnn.type, ".png"));
 plot(L_LambdaV, main = "Eigenvalues L-based (traditional)", col = "green3", ylab = "eigenvalue")
-if (IsPNG) dev.off()
+if (IsPNG)
+  dev.off()
 plot(c(L_LambdaV, LambdaV[1]), main = "Eigenvalues K (black) and L(green) -based (traditional)", col = "green3")
 points(LambdaV)
 readline("look and see the results of L-based clustering above >>>");
@@ -155,7 +161,6 @@ clKembed = V[, 1:trueNoCl]
 
 experiment$figex = "Kemb"
 plotEmbed(clKembed, clKbased, "K embedding")
-
 
 p = dim(Lbased$embed$vectors)[2]
 clLembed = Lbased$embed$vectors[, p - 1:trueNoCl]
@@ -197,15 +202,12 @@ cmpClusterings(nnn_cats, clKbased, theComment = "Is true clustering implied with
 cat("\n Is true clustering  implied  with L-based GSC\n");
 cmpClusterings(nnn_cats, clLbased, theComment = "Is true clustering implied with L-based GSC", theLabel = "trueL")
 
-topwords <- function(RES0, clustering)
-{
+topwords <- function(RES0, clustering) {
   for (j in names(table(clustering)))
-    if (sum(clustering == j) > 1)
-    {
+    if (sum(clustering == j) > 1) {
       RES0j = RES0[clustering == j,]
       wc = c()
-      for (k in 1:dim(RES0j)[2])
-      {
+      for (k in 1:dim(RES0j)[2]) {
         w = sum(RES0j[, k])
         wc = c(wc, w)
       }
@@ -217,18 +219,12 @@ topwords <- function(RES0, clustering)
     }
 }
 
-# eof
-
-
-topwordsdiffs <- function(RES0, clustering)
-{
+topwordsdiffs <- function(RES0, clustering) {
   for (j in names(table(clustering)))
-    if (sum(clustering == j) > 1)
-    {
+    if (sum(clustering == j) > 1) {
       RES0j = RES0[clustering == j,]
       wc = c()
-      for (k in 1:dim(RES0j)[2])
-      {
+      for (k in 1:dim(RES0j)[2]) {
         w = sum(RES0j[, k])
         wc = c(wc, w)
       }
@@ -236,12 +232,10 @@ topwordsdiffs <- function(RES0, clustering)
       wcXXX[] = 0
       wcXXXsigned = wcXXX
       for (j2 in names(table(clustering)))
-        if (sum(clustering == j2) > 1 && j != j2)
-        {
+        if (sum(clustering == j2) > 1 && j != j2) {
           RES0j2 = RES0[clustering == j2,]
           wc2 = c()
-          for (k in 1:dim(RES0j)[2])
-          {
+          for (k in 1:dim(RES0j)[2]) {
             w = sum(RES0j2[, k])
             wc2 = c(wc2, w)
           }
@@ -260,9 +254,6 @@ topwordsdiffs <- function(RES0, clustering)
       print(cnn);
     }
 }
-
-# eof
-
 
 cat("\n True clusters top words \n");
 topwords(RES0, nnn_cats)

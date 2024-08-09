@@ -9,13 +9,13 @@ ENexclusionList = c();
 # SaveDocMatrix=TRUE;
 SaveDocMatrix = FALSE;
 
-
 ############ END PARAMETERS ######################
 
 
-#############################################
-while (sink.number() > 0) sink();
-while (!is.null(dev.list()))  dev.off();
+while (sink.number() > 0)
+  sink();
+while (!is.null(dev.list()))
+  dev.off();
 #library(openxlsx);
 #library(tidytext)
 
@@ -24,15 +24,14 @@ cat('
 Turning  the TWT set ', twt.type, ' to a document matrix.
 Assumption -- the data is already in memory via 	source("TWT_read.R" );
 '); flush.console();
-#-------------------------------------
-#------------------------------
+
 cat("
 Processing  ", dataset.list[twt.type.id], "
 ");
-if (twt.type == "EN")
-{
+
+if (twt.type == "EN") {
   exclusionList = ENexclusionList;
-} #
+}
 
 
 cat("
@@ -42,9 +41,11 @@ flush.console();
 words = c();
 pairedwords = c();
 
-for (j in 1:length(twt_docs))
-{ txt = twt_docs[j];
-  if (j %% 100 == 0) { cat("."); flush.console(); }
+for (j in 1:length(twt_docs)) {
+  txt = twt_docs[j];
+  if (j %% 100 == 0) {
+    cat("."); flush.console();
+  }
   txt = tolower(txt);
   txt = gsub("?", " ", txt, fixed = TRUE);
   txt = gsub(":", " ", txt, fixed = TRUE);
@@ -54,12 +55,10 @@ for (j in 1:length(twt_docs))
   wds = setdiff(wds, exclusionList);
   wds = wds[is.na(as.numeric(wds))];
 
-
   wp = c();
-  for (js in 2:length(wds))
-  { wp = c(wp, paste(wds[js - 1], wds[js]));
+  for (js in 2:length(wds)) {
+    wp = c(wp, paste(wds[js - 1], wds[js]));
   }
-
 
   wds = paste0("WD", wds);
   wp = paste0("WP", wp);
@@ -85,8 +84,8 @@ colnames(docM) = make.names(c(words, pairedwords));
 
 docM[,] = 0;
 #readline("tst"); 
-for (j in 1:length(twt_docs))
-{ txt = twt_docs[j];
+for (j in 1:length(twt_docs)) {
+  txt = twt_docs[j];
   txt = tolower(txt);
   txt = tolower(txt);
   txt = gsub("?", " ", txt, fixed = TRUE);
@@ -100,8 +99,8 @@ for (j in 1:length(twt_docs))
 
   wp = c();
   if (length(wds) > 2)
-    for (js in 2:length(wds))
-    { wp = c(wp, paste(wds[js - 1], wds[js]));
+    for (js in 2:length(wds)) {
+      wp = c(wp, paste(wds[js - 1], wds[js]));
     }
 
   wds = paste0("WD", wds);
@@ -125,12 +124,13 @@ RES = docM;
 cat("
 Remove columns with one non-zero entry only 
 
-"); flush.console();
+");
+flush.console();
 toremove = c();
-for (jc in colnames(RES))
-{
+for (jc in colnames(RES)) {
   ile = sum(RES[, jc] > 0);
-  if (ile < 2)    toremove = c(toremove, jc);
+  if (ile < 2)
+    toremove = c(toremove, jc);
 } # for jc
 cat("
 Columns with one entry only

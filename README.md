@@ -15,7 +15,7 @@ Input data: tweets with exactly 1 of 10 hashtags.
 
 ## ``Results``
 
-Output directory ``Results`.
+Output directory ``Results``.
 Must exist in parent relatively to R code working folder.
 
 ## ``R``

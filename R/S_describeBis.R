@@ -158,7 +158,7 @@ for (isPDF in c(FALSE, TRUE)) {
   if (isPDF)
     pdf(paste0("../Results/figs/", experiment$name, "_", experiment$figex, ".pdf"))
   plot(sort(aDVtop100 - aDVlow100),
-       main = "average differene top bottom mean",
+       main = "average difference top bottom mean",
        ylab = "point similarity 100 span",
        ylim = c(0, max(c(aDVtop100 - aDVlow100))));
   if (!isPDF)
